@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>构建自己的 docker 镜像 | Chihiro 的博客</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.fab77d47.css" as="style"><link rel="preload" href="/assets/js/app.8683162c.js" as="script"><link rel="preload" href="/assets/js/2.3e7e0b9d.js" as="script"><link rel="preload" href="/assets/js/9.ecf8eca3.js" as="script"><link rel="prefetch" href="/assets/js/10.f81f62df.js"><link rel="prefetch" href="/assets/js/3.a7b40a35.js"><link rel="prefetch" href="/assets/js/4.865692a8.js"><link rel="prefetch" href="/assets/js/5.81254301.js"><link rel="prefetch" href="/assets/js/6.6e8c67be.js"><link rel="prefetch" href="/assets/js/7.9dff58c1.js"><link rel="prefetch" href="/assets/js/8.3c682f67.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.fab77d47.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Chihiro 的博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Github</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Docker</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/1 - docker/dockerfile.html" class="active sidebar-link">构建自己的 docker 镜像</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/1 - docker/dockerfile.html#编写-dockfile" class="sidebar-link">编写 Dockfile</a></li><li class="sidebar-sub-header"><a href="/1 - docker/dockerfile.html#构建镜像" class="sidebar-link">构建镜像</a></li><li class="sidebar-sub-header"><a href="/1 - docker/dockerfile.html#上传镜像" class="sidebar-link">上传镜像</a></li><li class="sidebar-sub-header"><a href="/1 - docker/dockerfile.html#拉取创建容器" class="sidebar-link">拉取创建容器</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="构建自己的-docker-镜像"><a href="#构建自己的-docker-镜像" class="header-anchor">#</a> 构建自己的 docker 镜像</h1> <p>以前一直觉得搭建 shadowsocks 服务器挺麻烦的，步骤老多还记不住，看 github 的 wiki 上也没有 docker 安装方式的介绍，就想做一个 docker 镜像（其实 docker 上已经有好多了<a href="https://hub.docker.com/search?q=shadowsocks&amp;type=image" target="_blank" rel="noopener noreferrer">^参考<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>）。那么以下就是摸索的结果。</p> <h2 id="编写-dockfile"><a href="#编写-dockfile" class="header-anchor">#</a> 编写 Dockfile</h2> <p>编写以下文件保存为 Dockfile</p> <div class="language-bash extra-class"><pre class="language-bash"><code>FROM centos
+
+MAINTAINER bakujin bakujin@qq.com
+
+<span class="token comment"># Commands to update the image</span>
+RUN yum update -y
+RUN yum <span class="token function">install</span> -y python-setuptools
+<span class="token comment"># m2crypto epel-release</span>
+RUN yum <span class="token function">install</span> -y epel-release
+RUN easy_install pip
+RUN pip <span class="token function">install</span> shadowsocks
+
+EXPOSE <span class="token number">8443</span> <span class="token number">1080</span>
+<span class="token comment"># Commands when creating a new container</span>
+CMD ssserver -p <span class="token number">8443</span> -k <span class="token variable">${password<span class="token operator">:-</span>nopassword}</span> -m aes-256-cfb --fast-open <span class="token boolean">true</span> -q
+</code></pre></div><table><thead><tr><th>命令</th> <th>用途</th></tr></thead> <tbody><tr><td>FROM image</td> <td>从一个基础镜像开始构建你的新的镜像，比如 python:2.7 / ubuntu</td></tr> <tr><td>RUN command</td> <td>运行某条命令</td></tr> <tr><td>EXPOSE port</td> <td>暴露给宿主机器的端口</td></tr> <tr><td>CMD command</td> <td>在别人 docker run/start 的时候，就会运行这条命令</td></tr> <tr><td>${var:-word}</td> <td>使用环境变量 var ， 如果没有定义就用默认值 word</td></tr> <tr><td>VOLUME [&quot;/data&quot;]</td> <td>允许使用宿主机器的路径映射到 /data 上</td></tr></tbody></table> <h2 id="构建镜像"><a href="#构建镜像" class="header-anchor">#</a> 构建镜像</h2> <p>进入到包含上述 Dockfile 的目录，运行：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker build -t shadowsocks:0.1 <span class="token builtin class-name">.</span>
+</code></pre></div><ul><li>-t ：表示这个镜像的名称和 tag，可以写多个-t，如 “-t shykes/myapp:1.0.2 -t shykes/myapp:latest”</li> <li>-f ：设置 Dockerfile 的路径<div class="custom-block warning"><p class="custom-block-title">WARNING</p> <p>最后这个. 千万不要漏了</p></div>
+之后 docker 会先下载基础镜像，一步一步运行 RUN command，每一步它都会保存一个临时的镜像，如果存在了的话，那一句 command 就不会再运行了。整个运行过程都有步骤提示，等到步骤完成就可以用 dokcer images 看到刚刚自己建立的镜像了。</li></ul> <h2 id="上传镜像"><a href="#上传镜像" class="header-anchor">#</a> 上传镜像</h2> <p>这里可以选择上传的阿里云的镜像服务或者 docker 官方的库。</p> <h2 id="拉取创建容器"><a href="#拉取创建容器" class="header-anchor">#</a> 拉取创建容器</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>docker run -d --restart always -p <span class="token number">8443</span>:8443 -e <span class="token assign-left variable">password</span><span class="token operator">=</span>AgoodPW qxstudio/shadowsocks:1.2
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新:</span> <span class="time">1/10/2021, 9:05:20 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/0 - github/github-page.html" class="prev">
+        如何开通 Github Page
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.8683162c.js" defer></script><script src="/assets/js/2.3e7e0b9d.js" defer></script><script src="/assets/js/9.ecf8eca3.js" defer></script>
+  </body>
+</html>
