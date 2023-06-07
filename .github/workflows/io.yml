@@ -1,0 +1,28 @@
+name: "github actions build and deploy gh-pages"
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false
+      - name: node16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: install and build
+        run: |
+          yarn
+          yarn docs:build
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs/.vuepress/dist
+          CLEAN: true
