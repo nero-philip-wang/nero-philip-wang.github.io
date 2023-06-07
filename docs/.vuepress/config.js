@@ -1,5 +1,5 @@
 module.exports = {
-  title: "Chihiro 的博客",
+  title: "nero.wang 的博客",
   themeConfig: {
     nav: [{ text: "Home", link: "/" }],
     // sidebar: ["/", "/docker/"],
