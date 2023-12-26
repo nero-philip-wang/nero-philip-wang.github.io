@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>一个基于 HAL/LL 库的简单封装 | nero.wang 的博客</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <script async="true" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0095302828244181" crossorigin="anonymous"></script>
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.9c97aa0f.css" as="style"><link rel="preload" href="/assets/js/app.7a973fd1.js" as="script"><link rel="preload" href="/assets/js/2.b1c8daab.js" as="script"><link rel="preload" href="/assets/js/14.28f1d1a2.js" as="script"><link rel="prefetch" href="/assets/js/10.4a2775ab.js"><link rel="prefetch" href="/assets/js/11.e1cdf63a.js"><link rel="prefetch" href="/assets/js/12.1a70e979.js"><link rel="prefetch" href="/assets/js/13.fdced5ec.js"><link rel="prefetch" href="/assets/js/15.392db2d3.js"><link rel="prefetch" href="/assets/js/3.dd22a757.js"><link rel="prefetch" href="/assets/js/4.865692a8.js"><link rel="prefetch" href="/assets/js/5.81254301.js"><link rel="prefetch" href="/assets/js/6.6e8c67be.js"><link rel="prefetch" href="/assets/js/7.7db5dc92.js"><link rel="prefetch" href="/assets/js/8.2ff7ad83.js"><link rel="prefetch" href="/assets/js/9.5fef77f1.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.9c97aa0f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">nero.wang 的博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Github</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Docker</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Workflow</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>嵌入式</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/04. 嵌入式/arm_template.html" class="active sidebar-link">一个基于 HAL/LL 库的简单封装</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/04. 嵌入式/arm_template.html#gpio-定义" class="sidebar-link">GPIO 定义</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="一个基于-hal-ll-库的简单封装"><a href="#一个基于-hal-ll-库的简单封装" class="header-anchor">#</a> 一个基于 HAL/LL 库的简单封装</h1> <h2 id="gpio-定义"><a href="#gpio-定义" class="header-anchor">#</a> GPIO 定义</h2> <ul><li>定于一系列宏，格式为 GPIO[X][a]，其中 X 为 ABCDEFG， a 为 00-15，如 GPIOA00，GPIOF04</li> <li>每个宏对应一个 uint32 的类型， 4 个字节。 其中高 2 位用于 配置</li></ul> <table><thead><tr><th>高</th> <th>00 00</th> <th>00</th> <th>00</th> <th>低</th></tr></thead> <tbody><tr><td></td> <td>00 00</td> <td>00</td> <td>00</td> <td></td></tr></tbody></table></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新:</span> <span class="time">12/26/2023, 1:57:33 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/03.workflow/structure.html" class="prev">
+        项目结构说明
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.7a973fd1.js" defer></script><script src="/assets/js/2.b1c8daab.js" defer></script><script src="/assets/js/14.28f1d1a2.js" defer></script>
+  </body>
+</html>
