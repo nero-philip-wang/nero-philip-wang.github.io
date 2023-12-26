@@ -23,6 +23,8 @@ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=password' -p 1433:1433 -v /home/ms
 
 ```bash
 docker run -d --name pgsql --restart=always -p 5432:5432 -e POSTGRES_PASSWORD=nopw12@@ -e PGDATA=/var/lib/postgresql/data/pgdata -v /srv/postgresql:/var/lib/postgresql/data postgres:14.8
+# 设置为东八区
+docker run -d --name pgsql --restart=always -p 5432:5432 -e POSTGRES_PASSWORD=nopw12@@ -e PGDATA=/var/lib/postgresql/data/pgdata -e PGTZ=PRC -e TZ=PRC -v /srv/postgresql:/var/lib/postgresql/data postgres:14.8
 ```
 
 ## redis
